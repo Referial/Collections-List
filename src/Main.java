@@ -16,59 +16,20 @@ public class Main {
 
             switch (scanner.nextInt()) {
                 case 1:
-                    System.out.println("Какую покупку хотите добавить?");
-
-                    list.add(scanner.next());
-
-                    System.out.println("Итого в списке покупок: " + list.size());
+                    addProduct(scanner, list);
                     break;
                 case 2:
-                    System.out.println("Список покупок:");
-
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println((i + 1) + ". " + list.get(i));
-                    }
+                    ShoppingList(list);
                     break;
                 case 3:
-                    System.out.println("Список покупок:");
+                    ShoppingList(list);
 
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println((i + 1) + ". " + list.get(i));
-                    }
+                    deleteProduct(scanner, list);
 
-                    System.out.println("Какую хотите удалить? Введите номер или название");
-
-                    String k = scanner.next();
-                    String name = null;
-
-                    try {
-                        int t = Integer.parseInt(k) - 1;
-                        name = list.get(t);
-                        list.remove(t);
-                    } catch (NumberFormatException exception) {
-                        name = k;
-                        list.remove(k);
-                    }
-
-                    System.out.println("Покупка \"" + name + "\" удалена, список покупок:");
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println((i + 1) + ". " + list.get(i));
-                    }
+                    ShoppingList(list);
                     break;
                 case 4:
-                    System.out.println("Введите текст для поиска:");
-
-                    String queryLower = scanner.next();
-                    queryLower = queryLower.toLowerCase();
-
-                    System.out.println("Найдено:");
-
-                    for (String s : list) {
-                        String itemLower = s.toLowerCase();
-                        if (itemLower.contains(queryLower)) {
-                            System.out.println((list.indexOf(s) + 1) + ". " + s);
-                        }
-                    }
+                    searchProduct(scanner, list);
                     break;
                 case 5:
                     x++;
@@ -77,6 +38,56 @@ public class Main {
                     System.out.println("Некоректный ввод.");
                     break;
             }
+        }
+    }
+
+    private static void deleteProduct(Scanner scanner, LinkedList<String> list) {
+        System.out.println("Какую хотите удалить? Введите номер или название");
+
+        String k = scanner.next();
+        String name = null;
+
+        try {
+            int t = Integer.parseInt(k) - 1;
+            name = list.get(t);
+            list.remove(t);
+        } catch (NumberFormatException exception) {
+            name = k;
+            list.remove(k);
+        }
+
+        System.out.println("Покупка \"" + name + "\" удалена, список покупок:");
+    }
+
+    private static void searchProduct(Scanner scanner, LinkedList<String> list) {
+        System.out.println("Введите текст для поиска:");
+
+        String queryLower = scanner.next();
+        queryLower = queryLower.toLowerCase();
+
+        System.out.println("Найдено:");
+
+        for (String s : list) {
+            String itemLower = s.toLowerCase();
+            if (itemLower.contains(queryLower)) {
+                System.out.println((list.indexOf(s) + 1) + ". " + s);
+            }
+        }
+    }
+
+    private static void addProduct(Scanner scanner, LinkedList<String> list) {
+        System.out.println("Какую покупку хотите добавить?");
+
+        list.add(scanner.next());
+
+        System.out.println("Итого в списке покупок: " + list.size());
+    }
+
+    private static void ShoppingList(LinkedList<String> list) {
+        System.out.println("Список покупок:");
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i));
         }
     }
 }
